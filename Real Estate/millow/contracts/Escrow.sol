@@ -55,7 +55,7 @@ contract Escrow {
         uint256 _purchasePrice,
         uint256 _escrowAmount
     ) public payable onlySeller {
-        // Transfer NFT from seller to this contract
+        
         IERC721(nftAddress).transferFrom(msg.sender, address(this), _nftID);
 
         isListed[_nftID] = true;
@@ -64,12 +64,11 @@ contract Escrow {
         buyer[_nftID] = _buyer;
     }
 
-    // Put Under Contract (only buyer - payable escrow)
     function depositEarnest(uint256 _nftID) public payable onlyBuyer(_nftID) {
         require(msg.value >= escrowAmount[_nftID]);
     }
 
-    // Update Inspection Status (only inspector)
+    
     function updateInspectionStatus(uint256 _nftID, bool _passed)
         public
         onlyInspector
