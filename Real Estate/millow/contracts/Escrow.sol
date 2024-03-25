@@ -70,7 +70,7 @@ contract Escrow {
 
     
     function updateInspectionStatus(uint256 _nftID, bool _passed)
-        public
+        public pure
         onlyInspector
     {
         inspectionPassed[_nftID] = _passed;
@@ -79,6 +79,7 @@ contract Escrow {
     // Approve Sale
     function approveSale(uint256 _nftID) public {
         approval[_nftID][msg.sender] = true;
+        require(msg.sender !=purcahseprice,"disallow the apporval");
     }
 
     // Finalize Sale
@@ -114,7 +115,7 @@ contract Escrow {
         }
     }
 
-    receive() external payable {}
+    receive() external payable {};
 
     function getBalance() public view returns (uint256) {
         return address(this).balance;
